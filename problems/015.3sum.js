@@ -3,38 +3,38 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
-var threeSum = function(nums) {
-  const sortedNums = quickSort(nums);
+var threeSum = function(nums, toFind = 0) {
+  nums = quickSort(nums);
   const result = [];
-  if (!sortedNums.length || sortedNums[0] > 0 || sortedNums[sortedNums.length - 1] < 0) {
+  if (!nums.length || nums[0] > 0 || nums[nums.length - 1] < 0) {
     return [];
   }
-  for (let i = 0; i < sortedNums.length - 2; i++) {
+  for (let i = 0; i < nums.length - 2; i++) {
     // 不可能出现3个整数相加等于0的情况
-    if (sortedNums[i] > 0) {
+    if (nums[i] > 0) {
       break;
     }
     // 跳过重复值
-    if (i > 0 && sortedNums[i - 1] === sortedNums[i]) {
+    if (i > 0 && nums[i - 1] === nums[i]) {
       continue;
     }
-    const target = 0 - sortedNums[i];
+    const target = toFind - nums[i];
     let left = i + 1;
-    let right = sortedNums.length - 1;
+    let right = nums.length - 1;
     while(left < right) {
-      if (sortedNums[left] + sortedNums[right] === target) {
-        result.push([sortedNums[i], sortedNums[left], sortedNums[right]]);
+      if (nums[left] + nums[right] === target) {
+        result.push([nums[i], nums[left], nums[right]]);
         // 跳过重复值
-        while (left < right && sortedNums[left] === sortedNums[left + 1] ) {
+        while (left < right && nums[left] === nums[left + 1] ) {
           left++;
         }
         // 跳过重复值
-        while (left < right && sortedNums[right] === sortedNums[right - 1] ) {
+        while (left < right && nums[right] === nums[right - 1] ) {
           right--;
         }
         left++;
         right--;
-      } else if (sortedNums[left] + sortedNums[right] < target) {
+      } else if (nums[left] + nums[right] < target) {
         left++;
       } else {
         right--;
@@ -60,3 +60,4 @@ console.log(threeSum([-1,0,1,2,-1,-4]));
 console.log(threeSum([]));
 console.log(threeSum([0]));
 console.log(threeSum([-1,0,1,2,-1,-4,-2,-3,3,0,4]));
+console.log(threeSum([-1,0,1,2,-1,-4,-2,-3,3,0,4], 2));
