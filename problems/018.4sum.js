@@ -19,9 +19,7 @@ var fourSum = function(nums, target) {
     // start 去除result中的重复值
     for (let j = i + 1; j < nums.length - 2; j++) {
       // 左边重复值
-      if (j > i + 1 && nums[j] === nums[j - 1]) {
-        continue;
-      }
+      if (j > i + 1 && nums[j] === nums[j - 1]) continue;
       let left = j + 1;
       let right = nums.length - 1;
       while (left < right) {
